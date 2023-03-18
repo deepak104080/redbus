@@ -30,6 +30,7 @@ const Search = () => {
         if(!window.location.href.indexOf('list') >=0 ) {
             navigate('/list')
         }
+        //set searchFrom, searchTo, searchDate in context varibale
       }
 
       
