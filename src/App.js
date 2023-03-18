@@ -8,24 +8,28 @@ import Col from 'react-bootstrap/Col';
 
 import Home from './Home';
 import List from './List';
+import Checkout from './Checkout';
 import Register from './Register';
 import Login from './Login';
+import NotFound from './NotFound';
 
 import Header from './template/Header';
-import Navbar from './template/Navbar';
+import Menubar from './template/Menubar';
 import Footer from './template/Footer';
 import LeftSidebar from './template/LeftSidebar';
 import RightSidebar from './template/RightSidebar';
+import DataApp from './DataApp';
 
 function App() {
   return (
 
     <BrowserRouter>
+        <DataApp>
           
-            <Container>
+            <Container className='container-fluid'>
 
               <Header/>
-              <Navbar/>
+              <Menubar/>
 
               <Row>
                 <Col xs={3} className='bg-primary'>
@@ -36,8 +40,12 @@ function App() {
                   <Routes>
                     <Route path="/home" element={<Home/>}/>
                     <Route path="/list" element={<List/>}/>
+                    <Route path="/checkout" element={<Checkout/>}/>
                     <Route path="/register" element={<Register/>}/>
                     <Route path="/login" element={<Login/>}/>
+
+                    <Route path='/' element={<Home/>}/>
+                    <Route path='/*' element={<NotFound/>}/>
                   </Routes>
                 </Col>
 
@@ -50,6 +58,7 @@ function App() {
               <Footer/>
 
             </Container>
+        </DataApp>
     </BrowserRouter>
   );
 }

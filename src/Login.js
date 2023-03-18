@@ -1,4 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react';
+import {DataAppContext} from './DataApp';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const initialData = {
@@ -11,6 +13,10 @@ const Login = () => {
 
     //state variable to check form submission status
     const [loginstatus, setStatus] = useState(false);
+
+
+    const localContext = useContext(DataAppContext);
+    const navigate = useNavigate();
 
     //method to update each key of state object
     const updateData = (e) => {
@@ -39,6 +45,14 @@ const Login = () => {
                         console.log('Inside 2nd if - ', i)
                         setStatus(true);
                         //set context varibale
+                        let obj = {
+                            ...localContext.appState,
+                            loginStatus: true, //true means logged in
+                            username: loginformdata.username,
+                        }
+                        localContext.setAppState(obj)
+                        //navigate page to home
+                        navigate('/home')
                     }
                 }
             }
@@ -59,9 +73,9 @@ const Login = () => {
   return (
     <div>
         
-        Username: <input type="text" id="username" onChange={updateData} value={loginformdata.username} />
+        Username: <input type="text" id="username" onChange={updateData} value={loginformdata.username} /><br></br>
 
-        Password: <input type="password" id="password" onChange={updateData} value={loginformdata.password} /><br></br>
+        Password: <input type="password" id="password" onChange={updateData} value={loginformdata.password} /><br></br><br></br>
 
 
             <button onClick={loginFn}>Login</button>

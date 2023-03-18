@@ -43,9 +43,9 @@ const Register = () => {
     return (
         <div>
 
-            Username: <input type="text" id="username" onChange={updateData} value={formdata.username} />
+            Username: <input type="text" id="username" onChange={updateData} value={formdata.username} /><br></br>
 
-            Password: <input type="password" id="password" onChange={updateData} value={formdata.password} /><br></br>
+            Password: <input type="password" id="password" onChange={updateData} value={formdata.password} /><br></br><br></br>
 
             <button onClick={registerFn}>Register</button>
             <br></br>

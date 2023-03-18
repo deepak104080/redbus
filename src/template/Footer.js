@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 const Footer = () => {
   return (
     <Row className='bg-success'>
-        <Col >Footer1 of 1</Col>
+        <Col >Ⓒ 2023 ibibogroup All rights reserved</Col>
     </Row>
   )
 }

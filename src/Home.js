@@ -1,9 +1,16 @@
-import React from 'react'
+import React, {useState} from 'react';
+import Search from './Search';
 
 const Home = () => {
+
+  
   return (
     <div>
-        <h2>Home</h2>
+      <Search/>
+
+      
+
+
     </div>
   )
 }
