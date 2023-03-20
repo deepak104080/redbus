@@ -19,6 +19,7 @@ import Footer from './template/Footer';
 import LeftSidebar from './template/LeftSidebar';
 import RightSidebar from './template/RightSidebar';
 import DataApp from './DataApp';
+import { Button } from 'bootstrap';
 
 function App() {
   return (
@@ -32,11 +33,11 @@ function App() {
               <Menubar/>
 
               <Row>
-                <Col xs={3} className='bg-primary'>
+                {/* <Col xs={3} className='bg-primary'>
                     <LeftSidebar/>
-                </Col>
+                </Col> */}
 
-                <Col xs={6}>
+                <Col xs={12}>
                   <Routes>
                     <Route path="/home" element={<Home/>}/>
                     <Route path="/list" element={<List/>}/>
@@ -49,9 +50,9 @@ function App() {
                   </Routes>
                 </Col>
 
-                <Col xs={3} className='bg-primary'>
+                {/* <Col xs={3} className='bg-primary'>
                   <RightSidebar/>
-                </Col>
+                </Col> */}
 
               </Row>
 
@@ -74,3 +75,9 @@ export default App;
 
 
 // Rest pages - context check (Authorization)
+
+
+// switch Button
+// soting
+// seat selection
+//checkout -passenger and payment details

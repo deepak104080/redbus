@@ -14,6 +14,8 @@ const Login = () => {
     //state variable to check form submission status
     const [loginstatus, setStatus] = useState(false);
 
+    const [loginApiFailStatus, setLoginApiFailStatus] = useState(false);
+
 
     const localContext = useContext(DataAppContext);
     const navigate = useNavigate();
@@ -36,26 +38,37 @@ const Login = () => {
             let temp = JSON.parse(localStorage.getItem('users'));
             // localStorage.setItem('users', JSON.stringify([...temp, formdata]));
 
-
-            for(let i=0 ; i<temp.length ; i++) {
-                console.log(temp[i].username, loginformdata.username);
-                if(temp[i].username === loginformdata.username) {
-                    console.log('Inside first if - ', i)
-                    if(temp[i].password === loginformdata.password) {
-                        console.log('Inside 2nd if - ', i)
-                        setStatus(true);
-                        //set context varibale
-                        let obj = {
-                            ...localContext.appState,
-                            loginStatus: true, //true means logged in
-                            username: loginformdata.username,
+            if(temp) {
+                for(let i=0 ; i<temp.length ; i++) {
+                    console.log(temp[i].username, loginformdata.username);
+                    if(temp[i].username === loginformdata.username) {
+                        console.log('Inside first if - ', i)
+                        if(temp[i].password === loginformdata.password) {
+                            console.log('Inside 2nd if - ', i)
+                            setStatus(true);
+                            //set context varibale
+                            let obj = {
+                                ...localContext.appState,
+                                loginStatus: true, //true means logged in
+                                username: loginformdata.username,
+                            }
+                            localContext.setAppState(obj)
+                            //navigate page to home
+                            navigate('/home')
                         }
-                        localContext.setAppState(obj)
-                        //navigate page to home
-                        navigate('/home')
+                        else {
+                            setLoginApiFailStatus(true);
+                        }
+                    }
+                    else {
+                        setLoginApiFailStatus(true);
                     }
                 }
             }
+            else {
+                setLoginApiFailStatus(true);
+            }
+            
 
 
 
@@ -84,6 +97,11 @@ const Login = () => {
 
             {loginstatus && <div class="alert alert-success" role="alert">
                 <h2>Successfully Logged In</h2>
+                </div>
+            }
+
+            {loginApiFailStatus && <div class="alert alert-danger" role="alert">
+                <h2>Login Failed</h2>
                 </div>
             }
 

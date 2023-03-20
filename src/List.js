@@ -15,40 +15,54 @@ const List = () => {
   const [buses, setBuses] = useState([]);
   const [seats, setSeats] = useState([false, true, false, false]);
 
-  useEffect(() => {
-    if(!loginStatus) {
-      console.log('not logged in')
-      navigate('/login');
-    }
-    else {
-      console.log('logged in')
-    }
-  })
+  // useEffect(() => {
+  //   if(!loginStatus) {
+  //     console.log('not logged in')
+  //     navigate('/login');
+  //   }
+  //   else {
+  //     console.log('logged in')
+  //   }
+  // })
 
   const callApi = async() => {
     //create dynamic url with from and to cities
-    // const response = await fetch('https://content.newtonschool.co/v1/pr/63b70222af4f30335b4b3b9a/buses?source='+searchFrom+'&destination='+searchTo)
-    const response = await fetch('https://content.newtonschool.co/v1/pr/63b70222af4f30335b4b3b9a/buses?source=hyderabad&destination=vijayawada')
+    const response = await fetch('https://content.newtonschool.co/v1/pr/63b70222af4f30335b4b3b9a/buses?source='+searchFrom+'&destination='+searchTo)
+    // const response = await fetch('https://content.newtonschool.co/v1/pr/63b70222af4f30335b4b3b9a/buses?source=hyderabad&destination=vijayawada')
     const data = await response.json();
     console.log('List of Buses - ', data);
+    console.log('data', data);
     //add uniqueid and openStatus in array object
-    setBuses(data);
+    const ret = data.map((item) => {
+      item.openStatus = false;
+      return item
+    })
+    console.log('ret', ret);
+    setBuses(ret);
   }
 
   useEffect(() => {
     callApi();
-  }, [])
+  }, [searchFrom, searchTo])
 
-  const openPanel = () => {
+  const openPanel = (id) => {
     //set openStatus true for that specific bus - on basis of id
+    let ret = buses.map((item) => {
+      if(item.id === id) {
+        item.openStatus = !item.openStatus;
+      }
+      return item
+    })
+    setBuses(ret);
   }
   const selectSeat = (index) => {
     //setSeats
   }
 
-  const bookFn = () =>{
+  const bookFn = (id, name, price) =>{
     //useNavigate to checkout with some data - reference - nova_react
     //data - bus details
+    navigate('/checkout', {state : {busid: id, busname: name, costprice: price}})
   }
   
   return (
@@ -60,20 +74,20 @@ const List = () => {
         <br></br>
         <br></br>
 
-        <ListGroup variant="flush">
-        <ListGroup.Item>
+        <ListGroup variant="flush" className='bg-danger px-4 py-4'>
+        {/* <ListGroup.Item>
               <Row>
                 <Col>Bus Name</Col>
                 <Col>Arrival Time</Col>
                 <Col>Departure Time</Col>
                 <Col>Price</Col>
               </Row>
-            </ListGroup.Item>
+            </ListGroup.Item> */}
         {
           
           buses && buses.map((item, index) => (
             <>
-            <ListGroup.Item onClick={openPanel}>
+            <ListGroup.Item onClick={() => openPanel(item.id)} className="my-2">
               <Row>
                 <Col>{item.busName}</Col>
                 <Col>{item.arrivalTime}</Col>
@@ -81,18 +95,22 @@ const List = () => {
                 <Col>{item.ticketPrice}</Col>
               </Row>
             </ListGroup.Item>
-            {/* {openStatus && <>panel for bus seat selection</>} */}
-            
-            <button onClick={bookFn}>Book Ticket</button>
+            {item.openStatus && <>
+              <div className='bg-danger'>
+                   {/* {
+                      seats.map((item, index) => (
+                        <div className={item ? 'bus-seat selected' : 'bus-seat'} onClick={() => selectSeat(index)}>&nbsp;</div>
+                      ))
+                    } */}
+
+                    <button onClick={() => bookFn(item.id, item.busName, item.ticketPrice )}>Book Ticket</button>
+              </div>
+            </>}
             </>
           ))
         }
 
-          {/* {
-              seats.map((item, index) => (
-                <div className={item ? 'bus-seat selected' : 'bus-seat'} onClick={() => selectSeat(index)}>&nbsp;</div>
-              ))
-            } */}
+         
         </ListGroup>
     </div>
   )
