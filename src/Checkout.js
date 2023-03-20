@@ -8,7 +8,7 @@ const Checkout = () => {
   const {username, loginStatus, searchFrom, searchTo} = appState;
   const navigate = useNavigate();
   const {state} = useLocation();
-  const {busid, busname, costprice} = state;
+  const {busid, busname, costprice, seatNum} = state;
   console.log('state - ', state);
 
   const [id, setId] = useState('');
@@ -38,7 +38,7 @@ const Checkout = () => {
   }, [])
 
   useEffect(() => {
-    window.localStorage.setItem('booking', JSON.stringify({id, busid, busname, costprice, username, searchFrom, searchTo}))
+    window.localStorage.setItem('booking', JSON.stringify({id, busid, busname, costprice, username, searchFrom, searchTo, seatNum}))
   }, [id])
 
   return (
@@ -53,6 +53,7 @@ const Checkout = () => {
           <div>Passenger Name - {username}</div>
           <div>Source - {searchFrom}</div>
           <div>Destination - {searchTo}</div>
+          <div>Seat Number - {seatNum}</div>
         </div>
     </div>
   )

@@ -78,6 +78,6 @@ export default App;
 
 
 // switch Button
-// soting
+// sorting - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 // seat selection
-//checkout -passenger and payment details
+// checkout -passenger and payment details

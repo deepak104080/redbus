@@ -13,7 +13,7 @@ const List = () => {
   const navigate = useNavigate();
 
   const [buses, setBuses] = useState([]);
-  const [seats, setSeats] = useState([false, true, false, false]);
+  const [seats, setSeats] = useState(Array(32).fill(false));
 
   // useEffect(() => {
   //   if(!loginStatus) {
@@ -57,12 +57,17 @@ const List = () => {
   }
   const selectSeat = (index) => {
     //setSeats
+    
+    let arr = Array(32).fill(false);
+    arr[index] = true;
+    setSeats(arr);
   }
 
   const bookFn = (id, name, price) =>{
     //useNavigate to checkout with some data - reference - nova_react
     //data - bus details
-    navigate('/checkout', {state : {busid: id, busname: name, costprice: price}})
+    let seat = seats.indexOf(true) + 1;
+    navigate('/checkout', {state : {busid: id, busname: name, costprice: price, seatNum: seat }})
   }
   
   return (
@@ -97,12 +102,12 @@ const List = () => {
             </ListGroup.Item>
             {item.openStatus && <>
               <div className='bg-danger'>
-                   {/* {
+                   {
                       seats.map((item, index) => (
                         <div className={item ? 'bus-seat selected' : 'bus-seat'} onClick={() => selectSeat(index)}>&nbsp;</div>
                       ))
-                    } */}
-
+                    }
+                    <br></br>
                     <button onClick={() => bookFn(item.id, item.busName, item.ticketPrice )}>Book Ticket</button>
               </div>
             </>}
