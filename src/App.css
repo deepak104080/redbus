@@ -46,8 +46,30 @@
   height: 20px;
   float: left;
   background-color: #777777;
+  margin-right: 5px;
+  margin-top: 10px;
 }
 
 .selected {
   background-color: #00dd00;
+}
+
+.bus-panel {
+  width: 400px;
+  height: 200px;
+  max-width: 400px;
+  padding: 40px 90px;
+}
+
+.bus-engine {
+  width: 20px;
+  height: 100px;
+  margin-top: 10px;
+  position: absolute;
+  left: 400px;
+  width: 0; 
+  height: 0; 
+  border-top: 55px solid transparent;
+  border-bottom: 55px solid transparent;
+  border-left: 55px solid #dc3545;
 }

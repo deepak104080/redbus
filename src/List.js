@@ -102,11 +102,15 @@ const List = () => {
             </ListGroup.Item>
             {item.openStatus && <>
               <div className='bg-danger'>
+                <div className='bus-panel bg-light'>
                    {
                       seats.map((item, index) => (
                         <div className={item ? 'bus-seat selected' : 'bus-seat'} onClick={() => selectSeat(index)}>&nbsp;</div>
                       ))
                     }
+                    <div className='bus-engine'>&nbsp;</div>
+                  </div>
+                  
                     <br></br>
                     <button onClick={() => bookFn(item.id, item.busName, item.ticketPrice )}>Book Ticket</button>
               </div>

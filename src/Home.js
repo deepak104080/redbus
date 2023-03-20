@@ -7,10 +7,6 @@ const Home = () => {
   return (
     <div>
       <Search/>
-
-      
-
-
     </div>
   )
 }
